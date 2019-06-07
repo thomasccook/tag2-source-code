@@ -1,0 +1,6 @@
+.DS_STORE
+
+.settings/
+dist/
+node_modules/
+target/
