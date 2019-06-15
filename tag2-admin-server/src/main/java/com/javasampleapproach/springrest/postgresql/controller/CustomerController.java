@@ -22,13 +22,13 @@ import com.javasampleapproach.springrest.postgresql.repo.CustomerRepository;
 
 @CrossOrigin(origins = "http://localhost:4200")
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/customers")
 public class CustomerController {
 
 	@Autowired
 	CustomerRepository repository;
 
-	@GetMapping("/customers")
+	@GetMapping()
 	public List<Customer> getAllCustomers() {
 		System.out.println("Get all Customers...");
 
@@ -38,14 +38,14 @@ public class CustomerController {
 		return customers;
 	}
 
-	@PostMapping(value = "/customers/create")
+	@PostMapping(value = "/create")
 	public Customer postCustomer(@RequestBody Customer customer) {
 
 		Customer _customer = repository.save(new Customer(customer.getName(), customer.getAge()));
 		return _customer;
 	}
 
-	@DeleteMapping("/customers/{id}")
+	@DeleteMapping("/{id}")
 	public ResponseEntity<String> deleteCustomer(@PathVariable("id") long id) {
 		System.out.println("Delete Customer with ID = " + id + "...");
 
@@ -54,7 +54,7 @@ public class CustomerController {
 		return new ResponseEntity<>("Customer has been deleted!", HttpStatus.OK);
 	}
 
-	@DeleteMapping("/customers/delete")
+	@DeleteMapping("/delete")
 	public ResponseEntity<String> deleteAllCustomers() {
 		System.out.println("Delete All Customers...");
 
@@ -63,14 +63,14 @@ public class CustomerController {
 		return new ResponseEntity<>("All customers have been deleted!", HttpStatus.OK);
 	}
 
-	@GetMapping(value = "customers/age/{age}")
+	@GetMapping(value = "/age/{age}")
 	public List<Customer> findByAge(@PathVariable int age) {
 
 		List<Customer> customers = repository.findByAge(age);
 		return customers;
 	}
 
-	@PutMapping("/customers/{id}")
+	@PutMapping("/{id}")
 	public ResponseEntity<Customer> updateCustomer(@PathVariable("id") long id, @RequestBody Customer customer) {
 		System.out.println("Update Customer with ID = " + id + "...");
 
